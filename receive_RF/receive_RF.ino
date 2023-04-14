@@ -23,7 +23,7 @@
 //const int ledGREEN = 10;
 //const int ledBLUE = 9;
 
-const int datain = 13;  //Data input pin connected to the RF receiver
+const int datain = 14;  //Data input pin connected to the RF receiver
 
 
 void setup() {
@@ -35,9 +35,14 @@ void setup() {
   pinMode(ledRED, OUTPUT);
   pinMode(ledGREEN, OUTPUT);
   pinMode(ledBLUE, OUTPUT);
-  setColor(100,100,100);
+   //LED color testing
+  setColor(255, 0, 0); //red
   delay(500);
-  setColor(0, 0, 0);
+  setColor(0, 255, 0); //green
+  delay(500);
+  setColor(0, 0, 255); //blue
+  delay(500);
+  setColor(0,0,0);
 
   //RF Communication setup
   vw_set_ptt_inverted(true);
@@ -57,14 +62,18 @@ void loop() {
   uint8_t buflen = VW_MAX_MESSAGE_LEN;  //Message buffer length
 
   if (vw_get_message(buf, &buflen)) {
-    Serial.print(buf[0]);  //prints first buffer character to serial monitor, useful for debugging
-    if (buf[0] == '1') {   // Number 1 means turn page forward
+    //Serial.println(buf[0]);  //prints first buffer character to serial monitor, useful for debugging
+    if (buf[0] == '0') {   // Number 1 means turn page forward
+      //Serial.println("forward");  //prints first buffer character to serial monitor, useful for debugging
+      setColor(0,255,0);
       swipeRight();        //turn page forward
     }
-    if (buf[0] == '2') {  //Number 2 means turn page backward
+    if (buf[0] == '1') {  //Number 2 means turn page backward
+      //Serial.println("backward");  //prints first buffer character to serial monitor, useful for debugging
+      setColor(255,0,0);
       swipeLeft();        //turn page backward
     }
-    if (buf[0] == '0') {  //Number 0 means no page turning
+    if (buf[0] == '2') {  //Number 0 means no page turning
       setColor(0, 0, 0);  //turn off led
     }
   }

@@ -25,7 +25,6 @@ void setColor(int redValue, int greenValue, int blueValue) {
 }
 
 void swipeRight() {
-  setColor(0,255,0);
   swipe.write(rightStart);  //set upper left swiper position
   delay(swipeDelay);
   tilt.write(tiltPress);  //move tilt sensor to depress swipe arm ADJUST ANGLE
@@ -36,11 +35,9 @@ void swipeRight() {
   delay(tiltDelay);
   swipe.write(0);  //move swipe arm to edge of screen
   delay(swipeDelay);
-  setColor(0,0,0);
 }
 
 void swipeLeft() {
-  setColor(255,0,0);
   swipe.write(leftStart);  //set upper right swiper position
   delay(swipeDelay);
   tilt.write(tiltPress);  //move tilt sensor to depress swipe arm ADJUST ANGLE
@@ -51,7 +48,6 @@ void swipeLeft() {
   delay(tiltDelay);
   swipe.write(0);  //move swipe arm to edge of screen
   delay(swipeDelay);
-  setColor(0,0,0);
 }
 
 void runTests() {  //Automatically runs the page turner prototype testing
