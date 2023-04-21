@@ -1,11 +1,3 @@
-//serialMovement.h
-//Program to control swipe and tilt servos for the B.A.T.T. page turning subsystem with pushbuttonb inputs
-//Written by: Andrew Deering
-//Trinity University, Engineering Science
-
-//Libraries
-
-//Variables
 int swipePos;  //variable to store the swipe servo angle in degrees
 int tiltPos;   //variable to store the tilt servo angle in degrees
 

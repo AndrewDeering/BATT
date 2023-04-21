@@ -1,7 +1,9 @@
 #include "VirtualWire.h"
-const int SWLeft = 10;   //pin for the left switch (forward)
-const int SWRight = 12;  //pin for the right switch (backward)
-const int dataOut = 8;   //pin to send information to the RF transmitter
+
+const int SWLeft = 10;        //pin for the left switch (forward)
+const int SWRight = 12;       //pin for the right switch (backward)
+const int dataOut = 8;        //pin to send information to the RF transmitter
+const int interruptPin = 11;  //pin used to wake the device from low power mode
 //RGB LED pins
 const int ledBLUE = 4;
 const int ledGREEN = 5;
@@ -10,6 +12,7 @@ const int delayTime = 1000;  //Required duration in ms to hold inputs before sen
 //Variables to store the switch input values
 int left = 0;
 int right = 0;
+
 
 char *data;  //variable to store the message sent to the RF receiver. 2 = no page turn; 0 = turn page forward; 1 = turn page backward
 
@@ -28,14 +31,15 @@ void setup() {
   //Input switches operating in active low
   pinMode(SWLeft, INPUT_PULLUP);
   pinMode(SWRight, INPUT_PULLUP);
+
   //LED color testing
-  setColor(255, 0, 0); //red
+  setColor(255, 0, 0);  //red
   delay(500);
-  setColor(0, 255, 0); //green
+  setColor(0, 255, 0);  //green
   delay(500);
-  setColor(0, 0, 255); //blue
+  setColor(0, 0, 255);  //blue
   delay(500);
-  setColor(0,0,0);
+  setColor(0, 0, 0);
 
   Serial.begin(9600);  //used to start serial communication, can use for debugging
 
@@ -60,7 +64,7 @@ void loop() {
       vw_wait_tx();
       setColor(0, 255, 0);  //set LED green
       delay(1000);
-      setColor(0,0,0);
+      setColor(0, 0, 0);
       delay(3000);
     }
   } else if (left == HIGH && right == LOW) {  //Page backward input received
@@ -74,7 +78,7 @@ void loop() {
       vw_wait_tx();
       setColor(255, 0, 0);  //set LED red
       delay(1000);
-      setColor(0,0,0);
+      setColor(0, 0, 0);
       delay(3000);
     }
   } else {  //do not turn page
